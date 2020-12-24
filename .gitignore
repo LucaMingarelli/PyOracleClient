@@ -1,0 +1,13 @@
+{{*
+R
+node_modules
+*.pyc
+__pycache__
+.*
+!.gitignore
+!.gitattributes
+build
+*.egg-info
+dist
+README_DEVELOPER.md
+backup
