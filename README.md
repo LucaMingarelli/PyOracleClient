@@ -1,4 +1,4 @@
-# PyOracleClient <img src="" width="200"/>
+# PyOracleClient <img src="https://github.com/LucaMingarelli/PyOracleClient/raw/master/pyoracleclient/res/icon.png" width=" 70"/>
 
 
 [![version](https://img.shields.io/badge/version-0.0.1-success.svg)](#)
