@@ -8,12 +8,15 @@ from pyoracleclient.tns_template import _TNS_TEMPLATE
 _TNSORA_PATH = f'{ntpath.dirname(__file__)}/instantclient/network/admin/tnsnames.ora'
 
 
-def _delete_all_tns():
-    """Clears the file `tnsnames.ora` stored at pyoracleclient._TNSORA_PATH."""
+def _delete_all_tns(confirm=False):
+    """Clears the file `tnsnames.ora` stored at pyoracleclient._TNSORA_PATH.
+    Args:
+        confirm (bool): if False (default) asks for confirmation.
+        """
     print('This will reset all your tnsnames currently saved.\nDo you want to proceed? [y/n]')
     proceed = None
     while str(proceed).lower() not in ['y', 'n']:
-        proceed = input()
+        proceed = input() if not confirm else 'y'
         if proceed.lower()=='n':
             print('Aborted.')
         elif proceed.lower()=='y':
