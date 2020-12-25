@@ -8,5 +8,4 @@ _TNS_TEMPLATE = """{_name} = (DESCRIPTION=
                                                         (HOST={_host2})
                                                         (PORT={_port2})))
                                  (CONNECT_DATA=(SERVER=dedicated)
-                                               (SERVICE_NAME={_service_name}))
-                             )"""
+                                               (SERVICE_NAME={_service_name})))"""

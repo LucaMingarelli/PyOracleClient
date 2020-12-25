@@ -8,7 +8,7 @@ from pyoracleclient.tns_template import _TNS_TEMPLATE
 _TNSORA_PATH = f'{ntpath.dirname(__file__)}/instantclient/network/admin/tnsnames.ora'
 
 
-def _delete_all_tns(confirm=False):
+def delete_all_tns(confirm=False):
     """Clears the file `tnsnames.ora` stored at pyoracleclient._TNSORA_PATH.
     Args:
         confirm (bool): if False (default) asks for confirmation.
@@ -48,4 +48,4 @@ def add_custom_tns(tns):
 
 def print_tnsnames():
     with open(_TNSORA_PATH, "r") as f:
-        for l in f: print(l)
+        for l in f: print(l, end='')
