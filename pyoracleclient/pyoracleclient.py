@@ -6,7 +6,7 @@ import ntpath
 from pyoracleclient.tns_template import _TNS_TEMPLATE
 
 _TNSORA_PATH = f'{ntpath.dirname(__file__)}/instantclient/network/admin/tnsnames.ora'
-
+_SQLNETORA_PATH = f'{ntpath.dirname(__file__)}/instantclient/network/admin/sqlnet.ora'
 
 def delete_all_tns(confirm=False):
     """Clears the file `tnsnames.ora` stored at pyoracleclient._TNSORA_PATH.
