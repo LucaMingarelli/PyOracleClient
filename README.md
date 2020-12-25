@@ -5,7 +5,7 @@
 
 ## About
 
-This package contains an Oracle Instant Client's binaries, 
+This package contains an Oracle Instant Client's binaries (For Linux 64bit), 
 necessary to connect to Oracle databases with `cx_Oracle`.
 
 # Installation
