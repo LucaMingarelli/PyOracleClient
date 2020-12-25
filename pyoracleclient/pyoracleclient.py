@@ -36,6 +36,7 @@ def add_tns(name, protocol1, host1, port1, service_name, failover='ON', load_bal
                                    _service_name=service_name)
     with open(_TNSORA_PATH, "a") as f:
         f.write(new_tns)
+        f.write('\n')
 
 def add_custom_tns(tns):
     """Adds the tns specification to the file tnsnames.ora.
