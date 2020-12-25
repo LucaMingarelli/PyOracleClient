@@ -43,3 +43,6 @@ def add_custom_tns(tns):
     with open(_TNSORA_PATH, "a") as f:
         f.write(tns)
 
+def print_tnsnames():
+    with open(_TNSORA_PATH, "r") as f:
+        for l in f: print(l)
