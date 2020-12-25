@@ -1,7 +1,7 @@
 # PyOracleClient <img src="https://github.com/LucaMingarelli/PyOracleClient/raw/master/pyoracleclient/res/icon.png" width=" 70"/>
 
 
-[![version](https://img.shields.io/badge/version-0.0.3-success.svg)](#)
+[![version](https://img.shields.io/badge/version-0.0.4-success.svg)](#)
 
 ## About
 
