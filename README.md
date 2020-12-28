@@ -2,7 +2,7 @@
 
 
 
-[![version](https://img.shields.io/badge/version-0.0.16-success.svg)](#)
+[![version](https://img.shields.io/badge/version-0.2.0-success.svg)](#)
 
 ## About
 
