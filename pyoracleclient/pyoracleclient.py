@@ -1,12 +1,17 @@
 """Created on Thu Dec 24 10:10:01 2020
 @author: Luca Mingarelli
 """
-# from pyoracleclient import __file__
-import ntpath, os
+from pyoracleclient import __file__
+import ntpath, os, shutil
 from pyoracleclient.tns_template import _TNS_TEMPLATE
 
+_TNSORA_PATH = f'{ntpath.dirname(__file__)}/instantclient/network/admin/tnsnames.ora'
+_SQLNETORA_PATH = f'{ntpath.dirname(__file__)}/instantclient/network/admin/sqlnet.ora'
+_INSTANTCLIENT_PATH = f"{ntpath.dirname(__file__)}/instantclient"
+
 def _clean_client_dir():
-    os.system(f"rm -rd '{ntpath.dirname(__file__)}/instantclient'")
+    if os.path.exists(_INSTANTCLIENT_PATH):
+        os.system(f"rm -rfd '{_INSTANTCLIENT_PATH}'")
 
 def get_client(version='19.3.0.0.0',sys='linux', url=None):
     """Downloads an oracle instant client. By default for linux 64. To obtain a client for a different system
@@ -45,12 +50,20 @@ def get_client(version='19.3.0.0.0',sys='linux', url=None):
     client_dir = [d for d in os.listdir(ntpath.dirname(__file__))
                  if os.path.isdir(f"{ntpath.dirname(__file__)}/{d}")
                   and d[:13]=='instantclient'][0]
-    os.rename(f"{ntpath.dirname(__file__)}/{client_dir}", f"{ntpath.dirname(__file__)}/instantclient")
-    os.system(f"touch '{ntpath.dirname(__file__)}/instantclient/__init__.py'")
-    if not os.path.exists(_TNSORA_PATH):
-        open(_TNSORA_PATH, 'a').close()
-    if not os.path.exists(_SQLNETORA_PATH):
-        open(_SQLNETORA_PATH, 'a').close()
+
+    source = f"{ntpath.dirname(__file__)}/{client_dir}"
+    destination = _INSTANTCLIENT_PATH
+    if os.path.exists(destination):
+        shutil.rmtree(destination, ignore_errors=True)
+    os.system(f"mv '{source}' '{destination}'")
+    with open(f"{destination}/__init__.py", 'a+'): pass
+    try:
+        if not os.path.exists(_TNSORA_PATH):
+            with open(_TNSORA_PATH, 'a+'): pass
+        if not os.path.exists(_SQLNETORA_PATH):
+            with open(_SQLNETORA_PATH, 'a+'): pass
+    except:
+        pass
 
     print(f"\nOracle Instant Client version {version} stored at '{ntpath.dirname(__file__)}/instantclient'.")
 
@@ -84,7 +97,12 @@ def add_tns(name, protocol1, host1, port1, service_name, failover='ON', load_bal
                                    _protocol1=protocol1, _host1=host1, _port1=port1,
                                    _protocol2=protocol2, _host2=host2, _port2=port2,
                                    _service_name=service_name)
-    with open(_TNSORA_PATH, "a") as f:
+
+    if not os.path.exists(_TNSORA_PATH):
+        if not os.path.exists(ntpath.dirname(_TNSORA_PATH)):
+            os.makedirs(ntpath.dirname(_TNSORA_PATH))
+        os.system(f"touch '{_TNSORA_PATH}'")
+    with open(_TNSORA_PATH, "a+") as f:
         f.write(new_tns)
         f.write('\n')
 
