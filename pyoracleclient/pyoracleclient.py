@@ -29,10 +29,10 @@ def get_client(version='19.3.0.0.0',sys='linux', url=None):
     import requests, zipfile
     from tqdm import tqdm
     ORACLE_ROOT = f"https://download.oracle.com/otn_software/{sys}/instantclient"
-    url = url or f"{ORACLE_ROOT}/{version.replace('.','')}/instantclient-basic-{sys}.x64-{version}dbru.zip"
+    url = url or f"{ORACLE_ROOT}/{version.replace('.', '')}/instantclient-basic-{sys}.x64-{version}dbru.zip"
     r = requests.get(url, allow_redirects=True, stream=True)
     total_size = r.headers.get('content-length')
-    zip_file = f"{ntpath.dirname(__file__)}/instantclient{version[:4].replace('.','_')}.zip"
+    zip_file = f"{ntpath.dirname(__file__)}/instantclient{version[:4].replace('.', '_')}.zip"
 
     with open(zip_file, 'wb') as f:
         bar = tqdm(total=int(total_size), desc=f'Getting client, v.{version[:4]}',
@@ -48,15 +48,15 @@ def get_client(version='19.3.0.0.0',sys='linux', url=None):
 
     # Drop version from directory name
     client_dir = [d for d in os.listdir(ntpath.dirname(__file__))
-                 if os.path.isdir(f"{ntpath.dirname(__file__)}/{d}")
-                  and d[:13]=='instantclient'][0]
-
+                  if os.path.isdir(f"{ntpath.dirname(__file__)}/{d}")
+                  and d[:13] == 'instantclient'][0]
     source = f"{ntpath.dirname(__file__)}/{client_dir}"
     destination = _INSTANTCLIENT_PATH
     if os.path.exists(destination):
         shutil.rmtree(destination, ignore_errors=True)
     os.system(f"mv '{source}' '{destination}'")
-    with open(f"{destination}/__init__.py", 'a+'): pass
+    with open(f"{destination}/__init__.py", 'a+'):
+        pass
     try:
         if not os.path.exists(_TNSORA_PATH):
             with open(_TNSORA_PATH, 'a+'): pass
@@ -68,9 +68,6 @@ def get_client(version='19.3.0.0.0',sys='linux', url=None):
     print(f"\nOracle Instant Client version {version} stored at '{ntpath.dirname(__file__)}/instantclient'.")
 
 
-_TNSORA_PATH = f'{ntpath.dirname(__file__)}/instantclient/network/admin/tnsnames.ora'
-_SQLNETORA_PATH = f'{ntpath.dirname(__file__)}/instantclient/network/admin/sqlnet.ora'
-
 def delete_all_tns(confirm=False):
     """Clears the file `tnsnames.ora` stored at pyoracleclient._TNSORA_PATH.
     Args:
@@ -80,14 +77,13 @@ def delete_all_tns(confirm=False):
     proceed = None
     while str(proceed).lower() not in ['y', 'n']:
         proceed = input() if not confirm else 'y'
-        if proceed.lower()=='n':
+        if proceed.lower() == 'n':
             print('Aborted.')
-        elif proceed.lower()=='y':
-            file = open(_TNSORA_PATH, "r+")
-            file.truncate(0)
-            file.close()
+        elif proceed.lower() == 'y':
+            if os.path.exists(_TNSORA_PATH):
+                with open(_TNSORA_PATH, "r+") as f: f.truncate(0)
         else:
-            print("Expected either 'y' or 'n'.\nDo you want to proceed? [y/n]" )
+            print("Expected either 'y' or 'n'.\nDo you want to proceed? [y/n]")
 
 
 def add_tns(name, protocol1, host1, port1, service_name, failover='ON', load_balance='OFF',
@@ -106,6 +102,7 @@ def add_tns(name, protocol1, host1, port1, service_name, failover='ON', load_bal
         f.write(new_tns)
         f.write('\n')
 
+
 def add_custom_tns(tns):
     """Adds the tns specification to the file tnsnames.ora.
     Alternatively, you can also use the template stored in pyoracleclient._TNS_TEMPLATE.
@@ -114,6 +111,7 @@ def add_custom_tns(tns):
         """
     with open(_TNSORA_PATH, "a") as f:
         f.write(tns)
+
 
 def print_tnsnames():
     with open(_TNSORA_PATH, "r") as f:
