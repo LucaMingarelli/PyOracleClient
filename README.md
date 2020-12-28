@@ -1,11 +1,11 @@
 # PyOracleClient <img src="https://github.com/LucaMingarelli/PyOracleClient/raw/master/pyoracleclient/res/icon.png" width=" 70"/>
 
 
-[![version](https://img.shields.io/badge/version-0.0.5-success.svg)](#)
+[![version](https://img.shields.io/badge/version-0.1.0-success.svg)](#)
 
 ## About
 
-This package contains an Oracle Instant Client's binaries (For Linux 64bit), 
+This package provides access to Oracle Instant Client's binaries, 
 necessary to connect to Oracle databases with `cx_Oracle`.
 
 # Installation
@@ -15,7 +15,22 @@ You can install with pip as:
 
 ## Example
 
-You can add tns names via the `pyoracleclient.add_tns` function as shown below.
+
+After installation you want to download the oracle instant client: you can do this via the following:
+```python
+import pyoracleclient as pyoc
+
+pyoc.get_client(version='19.3.0.0.0', sys='linux', url=None)
+```
+
+By default version 19.3 for linux 64bits is downloaded. 
+To obtain a client for a different system provide the corresponding `url` instead.
+Visit 'https://www.oracle.com/database/technologies/instant-client/downloads.html',
+choose your version, and copy the download link. 
+For example for version `19.3.0.0.0` linux 64b, this will be in the form:
+`https://download.oracle.com/otn_software/linux/instantclient/193000/instantclient-basic-linux.x64-19.3.0.0.0dbru.zip`.
+
+You can now add tns names via the `pyoracleclient.add_tns` function as shown below.
 ```python
 import pyoracleclient as pyoc
 
