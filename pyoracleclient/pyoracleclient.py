@@ -3,17 +3,22 @@
 """
 from pyoracleclient import __file__
 import ntpath, os, shutil
+from datetime import datetime
 from pyoracleclient.tns_template import _TNS_TEMPLATE
 
-_TNSORA_PATH = f'{ntpath.dirname(__file__)}/instantclient/network/admin/tnsnames.ora'
-_SQLNETORA_PATH = f'{ntpath.dirname(__file__)}/instantclient/network/admin/sqlnet.ora'
-_INSTANTCLIENT_PATH = f"{ntpath.dirname(__file__)}/instantclient"
+_ROOT = ntpath.dirname(__file__)
+_TNSORA_PATH = f'{_ROOT}/instantclient/network/admin/tnsnames.ora'
+_SQLNETORA_PATH = f'{_ROOT}/instantclient/network/admin/sqlnet.ora'
+_INSTANTCLIENT_PATH = f"{_ROOT}/instantclient"
 
 def _clean_client_dir():
     if os.path.exists(_INSTANTCLIENT_PATH):
-        os.system(f"rm -rfd '{_INSTANTCLIENT_PATH}'")
+        date=datetime.now()
+        tempdir = f'{_ROOT}/.temp/{str(date.year)+str(date.month)}/{str(date)}'
+        os.makedirs(tempdir, exist_ok=True)
+        os.system(f"mv '{_INSTANTCLIENT_PATH}' '{tempdir}'")
 
-def get_client(version='19.3.0.0.0',sys='linux', url=None):
+def get_client(version='19.3.0.0.0', sys='linux', url=None):
     """Downloads an oracle instant client. By default for linux 64. To obtain a client for a different system
     provide the corresponding url instead.
     Visit 'https://www.oracle.com/database/technologies/instant-client/downloads.html',
@@ -32,7 +37,7 @@ def get_client(version='19.3.0.0.0',sys='linux', url=None):
     url = url or f"{ORACLE_ROOT}/{version.replace('.', '')}/instantclient-basic-{sys}.x64-{version}dbru.zip"
     r = requests.get(url, allow_redirects=True, stream=True)
     total_size = r.headers.get('content-length')
-    zip_file = f"{ntpath.dirname(__file__)}/instantclient{version[:4].replace('.', '_')}.zip"
+    zip_file = f"{_ROOT}/instantclient{version[:4].replace('.', '_')}.zip"
 
     with open(zip_file, 'wb') as f:
         bar = tqdm(total=int(total_size), desc=f'Getting client, v.{version[:4]}',
@@ -43,18 +48,20 @@ def get_client(version='19.3.0.0.0',sys='linux', url=None):
 
     # Unzip client
     with zipfile.ZipFile(zip_file, "r") as zip_ref:
-        zip_ref.extractall(f"{ntpath.dirname(__file__)}/")
+        zip_ref.extractall(f"{_ROOT}/")
     os.remove(zip_file)
 
     # Drop version from directory name
-    client_dir = [d for d in os.listdir(ntpath.dirname(__file__))
-                  if os.path.isdir(f"{ntpath.dirname(__file__)}/{d}")
+    client_dir = [d for d in os.listdir(_ROOT)
+                  if os.path.isdir(f"{_ROOT}/{d}")
                   and d[:13] == 'instantclient'][0]
-    source = f"{ntpath.dirname(__file__)}/{client_dir}"
+    source = f"{_ROOT}/{client_dir}"
     destination = _INSTANTCLIENT_PATH
     if os.path.exists(destination):
         shutil.rmtree(destination, ignore_errors=True)
-    os.system(f"mv '{source}' '{destination}'")
+    os.makedirs(destination, exist_ok=True)
+    # os.system(f"mv '{source}' '{destination}/'")
+    os.rename(source, destination)
     with open(f"{destination}/__init__.py", 'a+'):
         pass
     try:
@@ -65,7 +72,7 @@ def get_client(version='19.3.0.0.0',sys='linux', url=None):
     except:
         pass
 
-    print(f"\nOracle Instant Client version {version} stored at '{ntpath.dirname(__file__)}/instantclient'.")
+    print(f"\nOracle Instant Client version {version} stored at '{_ROOT}/instantclient'.")
 
 
 def delete_all_tns(confirm=False):
@@ -95,8 +102,7 @@ def add_tns(name, protocol1, host1, port1, service_name, failover='ON', load_bal
                                    _service_name=service_name)
 
     if not os.path.exists(_TNSORA_PATH):
-        if not os.path.exists(ntpath.dirname(_TNSORA_PATH)):
-            os.makedirs(ntpath.dirname(_TNSORA_PATH))
+        os.makedirs(ntpath.dirname(_TNSORA_PATH), exist_ok=True)
         os.system(f"touch '{_TNSORA_PATH}'")
     with open(_TNSORA_PATH, "a+") as f:
         f.write(new_tns)
@@ -116,3 +122,12 @@ def add_custom_tns(tns):
 def print_tnsnames():
     with open(_TNSORA_PATH, "r") as f:
         for l in f: print(l, end='')
+
+def _clear_temp():
+    if os.path.exists(f'{_ROOT}/.temp'):
+        date=datetime.now()
+        date=str(date.year)+str(date.month)
+        for dir in os.listdir(f'{_ROOT}/.temp'):
+            if date>dir:
+                os.system(f"rm -rfd '{_ROOT}/.temp/{dir}'")
+
