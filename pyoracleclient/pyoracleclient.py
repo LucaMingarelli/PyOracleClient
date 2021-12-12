@@ -83,7 +83,7 @@ def delete_all_tns(confirm=False):
     if not confirm: print('This will reset all your tnsnames currently saved.\nDo you want to proceed? [y/n]')
     proceed = None
     while str(proceed).lower() not in ['y', 'n']:
-        proceed = input() if not confirm else 'y'
+        proceed = input() if confirm else 'y'
         if proceed.lower() == 'n':
             print('Aborted.')
         elif proceed.lower() == 'y':
