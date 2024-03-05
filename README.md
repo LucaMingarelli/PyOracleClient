@@ -6,7 +6,7 @@
 [![PyPI Latest Release](https://img.shields.io/pypi/v/PyOracleClient.svg)](https://pypi.org/project/PyOracleClient/)
 [![License](https://img.shields.io/pypi/l/PyOracleClient.svg)](https://github.com/LucaMingarelli/PyOracleClient/blob/master/LICENSE.txt)
 [![Downloads](https://static.pepy.tech/personalized-badge/pyoracleclient?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads)](https://pepy.tech/project/pyoracleclient)
-
+<a href="https://www.buymeacoffee.com/lucamingarelli" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 109px !important;" ></a>
 
 ## About
 
@@ -70,5 +70,8 @@ Its location can be found in the variable `pyoracleclient._TNSORA_PATH`.
 # Author
 Luca Mingarelli, 2020
 
+**You find this work useful?** <a href="https://www.buymeacoffee.com/lucamingarelli" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 109px !important;" ></a>
+
 [![Python](https://img.shields.io/static/v1?label=made%20with&message=Python&color=blue&style=for-the-badge&logo=Python&logoColor=white)](#)
+
 
