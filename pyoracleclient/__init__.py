@@ -8,3 +8,4 @@ from pyoracleclient.pyoracleclient import *
 from pyoracleclient.pyoracleclient import _clear_temp
 
 _clear_temp()
+
