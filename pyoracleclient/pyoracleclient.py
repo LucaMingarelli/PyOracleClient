@@ -1,6 +1,8 @@
 """Created on Thu Dec 24 10:10:01 2020
 @author: Luca Mingarelli
 """
+from pathlib import Path
+
 from pyoracleclient import __file__
 import ntpath, os, shutil
 from datetime import datetime
@@ -103,7 +105,7 @@ def add_tns(name, protocol1, host1, port1, service_name, failover='ON', load_bal
 
     if not os.path.exists(_TNSORA_PATH):
         os.makedirs(ntpath.dirname(_TNSORA_PATH), exist_ok=True)
-        os.system(f"touch '{_TNSORA_PATH}'")
+        Path(_TNSORA_PATH).touch()
     with open(_TNSORA_PATH, "a+") as f:
         f.write(new_tns)
         f.write('\n')
