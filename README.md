@@ -2,7 +2,7 @@
 
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/LucaMingarelli/PyOracleClient/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/LucaMingarelli/PyOracleClient/tree/master)
-[![version](https://img.shields.io/badge/version-0.2.5-success.svg)](#)
+[![version](https://img.shields.io/badge/version-0.2.6-success.svg)](#)
 [![PyPI Latest Release](https://img.shields.io/pypi/v/PyOracleClient.svg)](https://pypi.org/project/PyOracleClient/)
 [![License](https://img.shields.io/pypi/l/PyOracleClient.svg)](https://github.com/LucaMingarelli/PyOracleClient/blob/master/LICENSE.txt)
 [![Downloads](https://static.pepy.tech/personalized-badge/pyoracleclient?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads)](https://pepy.tech/project/pyoracleclient)
