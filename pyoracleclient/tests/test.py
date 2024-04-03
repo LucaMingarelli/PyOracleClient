@@ -20,3 +20,5 @@ def test_custom_tns():
                                   (CONNECT_DATA=(SERVER=dedicated)
                                   (SERVICE_NAME=servicename.prd.tns)))
                     """)
+
+
