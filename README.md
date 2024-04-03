@@ -1,7 +1,7 @@
 # PyOracleClient <img src="https://github.com/LucaMingarelli/PyOracleClient/raw/master/pyoracleclient/res/icon.png" width=" 70"/>
 
 
-[![CircleCI](https://circleci.com/gh/LucaMingarelli/PyOracleClient.svg?style=svg&circle-token=fb55fad61f5b6274c5562d121174f42cba857132)](https://app.circleci.com/pipelines/github/LucaMingarelli/PyOracleClient)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/LucaMingarelli/PyOracleClient/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/LucaMingarelli/PyOracleClient/tree/master)
 [![version](https://img.shields.io/badge/version-0.2.5-success.svg)](#)
 [![PyPI Latest Release](https://img.shields.io/pypi/v/PyOracleClient.svg)](https://pypi.org/project/PyOracleClient/)
 [![License](https://img.shields.io/pypi/l/PyOracleClient.svg)](https://github.com/LucaMingarelli/PyOracleClient/blob/master/LICENSE.txt)
